@@ -1,0 +1,1 @@
+package xyz.soongkun.roast.module.t_user.dao;import xyz.soongkun.roast.module.t_user.model.User;public interface UserDao {    void addUser(User var1);    boolean checkEmailExist(String var1);    User getUserByEmail(String var1);}

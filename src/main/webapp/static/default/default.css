@@ -1,0 +1,132 @@
+
+@font-face {
+    font-family: 'tcfont';  /* project id 603489 */
+    src: url('//at.alicdn.com/t/font_603489_ck7yoqyr8zdxi529.eot');
+    src: url('//at.alicdn.com/t/font_603489_ck7yoqyr8zdxi529.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_603489_ck7yoqyr8zdxi529.woff') format('woff'),
+    url('//at.alicdn.com/t/font_603489_ck7yoqyr8zdxi529.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_603489_ck7yoqyr8zdxi529.svg#iconfont') format('svg');
+}
+
+.tcfont{
+    font-family: tcfont;
+}
+
+img{
+    max-width: 200px;
+    max-height: 200px;
+}
+
+header{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    height: 60px;
+}
+
+a.logo{
+    text-indent: -1000px;
+    display: block;
+    height: 37px;
+    width: 200px;
+    color: white;
+}
+
+.func-nav {
+    display: inline-block;
+    float: right;
+}
+
+.topbanner-container {
+    width: 100%;
+}
+
+
+.content-container{
+    background-color: white;
+    padding: 20px;
+    min-height: 400px;
+    margin-top: 20px;
+}
+
+
+a.logo{
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: url("${ctxStatic}/image/logo.png") no-repeat;
+}
+
+
+@media screen and (max-width: 768px){
+    a.logo{
+        float: left;
+        margin-top: 8px;
+        margin-left: 0;
+        background: url("${ctxStatic}/image/logo.png") no-repeat;
+    }
+}
+
+nav.userinfonav{
+    float: right;
+    position: relative;
+}
+
+.ushow {
+    color: #d2d2d2;
+    position: relative;
+    height: 60px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+a.ushow:hover{
+    color: white;
+}
+
+nav.userinfonav img{
+    width: 36px;
+    height: 36px;
+    margin-left: 10px;
+    border-radius: 100%;
+}
+
+
+dl.ushowMenu{
+    display: none;
+    width: 120px;
+    background-color: white;
+    margin-top: 8px;
+    border: 1px solid #eeeeee;
+    border-radius:2px;
+    color: black;
+    position: absolute;
+    z-index: 100;
+}
+
+dl.ushowMenu dt{
+    height: 40px;
+    padding: 5px;
+}
+
+dl.ushowMenu dt a {
+    width: 100%;
+    height: 100%;
+    font-size: 15px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+dl.ushowMenu dt a:hover{
+    background-color: #eeeeee;
+}
+
+dl.ushowMenu dt i{
+    font-size: 22px;
+    padding-right: 20px;
+    padding-left: 10px;
+}

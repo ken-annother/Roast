@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!-- 1.配置要扫描的包 -->
+    <context:component-scan base-package="xyz.soongkun.roast"/>
+
+    <!--2.配置CacheManager实例：管理Shiro相关缓存操作  -->
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+    </bean>
+
+    <!--3.配置realm实例，实际的认证和授权都是由Realm实例来完成的！  -->
+    <bean id="myRealm" class="xyz.soongkun.roast.realm.MyRealm"/>
+
+    <!-- 4.配置 SecurityManager 实例. SecurityManager 是 Shiro 最核心的组件 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="cacheManager" ref="shiroCacheManager"/>
+        <property name="realm" ref="myRealm"/>
+    </bean>
+
+    <!--5.配置bean的后置处理器来自动调用Shiro中的bean的init和destroy方法。  -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+
+    <!--6.配置使shiro注解起作用的bean，需要放在 lifecycleBeanPostProcessor后面 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!--
+        7.配置哪些页面需要被拦截，以及访问这些页面所需的权限 。
+        该bean中的id 属性值必须和 web.xml 文件中配置的 filter 的 filter-name 值一致
+    -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+
+        <!--①配置登陆页面  -->
+        <property name="loginUrl" value="/login"/>
+        <property name="successUrl" value="/index"/>
+        <property name="unauthorizedUrl" value="/unauthorize"/>
+        <!--②配置需要被拦截的资源 以及访问权限 -->
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- anon: 表示匿名的, 即任何人都可以访问 -->
+                /login=anon
+                /logout=logout
+
+                <!--③设置访问具体资源的权限  -->
+                /admin.jsp=roles[admin]
+                /user.jsp=roles[user]
+
+                <!-- authc 表示必须经过认证之后才可以访问的页面 -->
+                <!--/**=authc-->
+            </value>
+        </property>
+    </bean>
+</beans>

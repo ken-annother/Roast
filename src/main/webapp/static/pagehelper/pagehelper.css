@@ -1,0 +1,75 @@
+.tcdPageCode{
+    padding: 15px 20px;
+    text-align: left;
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.tcdPageCode a{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px;
+    border: 1px solid #ddd;
+    margin: 8px 2px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+.tcdPageCode a:hover{
+    text-decoration: none;
+    border: 1px solid #428bca;
+}
+.tcdPageCode a.current{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px;
+    margin: 0 2px;
+    color: #fff;
+    background-color: #009688;
+    border: 1px solid #009688;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+.tcdPageCode a.disabled{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 20px;
+    margin: 0 2px;
+    color: #bfbfbf;
+    background: #f2f2f2;
+    border: 1px solid #bfbfbf;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.tcdPageCode div.pagejump{
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.tcdPageCode input.layui-input-inline{
+    width: 60px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 8px;
+}
+
+.okjump{
+    height: 30px;
+    line-height: 30px;
+    margin-left: 20px;
+}
+
+.pagefynav {
+    text-align: center;
+}
+
+@media screen and (max-width: 768px){
+    .okjump {
+        margin-left: 5px;
+    }
+}

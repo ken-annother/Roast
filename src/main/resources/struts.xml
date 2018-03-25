@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <constant name="struts.devMode" value="true" />
+
+    <!-- /static 为存放静态资源的路径，意为不拦截对此文件夹下文件的请求 -->
+    <constant name="struts.action.excludePattern" value="/static/.*?" />
+
+    <constant name="struts.multipart.saveDir" value="/static/upload"/>
+
+    <!-- 默认访问页面 -->
+    <package name="default" extends="struts-default,json-default" namespace="/" strict-method-invocation="false">
+        <default-action-ref name="index"/>
+
+        <global-results>
+            <result name="toIndex" type="redirectAction">index</result>
+            <result name="toLogin" type="redirectAction">login</result>
+        </global-results>
+
+        <action name="index" class="indexAction">
+            <result>/WEB-INF/modules/index/index.jsp</result>
+        </action>
+
+        <action name="register" class="registerAction">
+            <result>/WEB-INF/modules/user/register.jsp</result>
+            <result name="register_success">/WEB-INF/modules/user/register_success.jsp</result>
+            <result name="register_failure">/WEB-INF/modules/user/register_failuer.jsp</result>
+            <result name="input">/WEB-INF/modules/user/register.jsp</result>
+        </action>
+
+
+        <action name="getCode" class="validationCodeAction">
+            <result type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+               <param name="root">data</param>
+            </result>
+        </action>
+
+        <action name="login" class="loginAction">
+            <result>/WEB-INF/modules/user/login.jsp</result>
+            <result name="pt" type="json">
+                <param name="root">data</param>
+            </result>
+            <result name="input">/WEB-INF/modules/user/login.jsp</result>
+        </action>
+
+        <action name="logout" class="logoutAction">
+            <result type="redirectAction">index</result>
+        </action>
+
+
+        <action name="poster_*" class="posterAction" method="{1}">
+            <result>/WEB-INF/modules/post/send.jsp</result>
+            <result name="send">/WEB-INF/modules/post/send.jsp</result>
+            <result name="pt" type="json">
+                <param name="root">data</param>
+            </result>
+        </action>
+
+
+        <action  name ="upload" class = "picUploadAction" method="upload">
+
+            <!-- 第二种方式:通过给fileUpload的拦截器注入参数的形式，控制上传文件的大小
+            无法使用   <param name="fileUpload.maximumSize">31457280</param>-->
+            <interceptor-ref name="defaultStack">
+                <!-- 限制上传文件的扩展名。如果有多个，使用逗号分隔-->
+                <param name="fileUpload.allowedExtensions">.jpg,.png</param>
+                <!-- 限制上传文件的MIME类型。 如果有多个，使用逗号分隔 -->
+                <param name="fileUpload.allowedTypes">image/bmp,image/png,image/gif,image/jpeg,image/jpg,image/x-png, image/pjpeg
+                </param>
+            </interceptor-ref>
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
+        </action>
+
+    </package>
+
+</struts>

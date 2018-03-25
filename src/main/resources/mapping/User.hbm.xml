@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="xyz.soongkun.roast.module.t_user.model">
+    <class name="User" table="t_user">
+        <id name="id" type="java.lang.Integer" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="nickname"/>
+        <property name="email" unique="true"/>
+        <property name="password"/>
+        <set name="posterlist" cascade="save-update,delete" inverse="true">
+            <key column="id"></key>
+            <one-to-many class="xyz.soongkun.roast.module.t_poster.model.Poster"/>
+        </set>
+    </class>
+</hibernate-mapping>
